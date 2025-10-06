@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ project.title }} · Portfolio{% endblock %}
+{% block content %}
+<article>
+    <h1>{{ project.title }}</h1>
+    {% if project.image %}
+        <img src="{{ project.image.url }}" alt="{{ project.title }}" />
+    {% endif %}
+    <p>{{ project.description }}</p>
+    <p>
+        {% if project.github_url %}<a href="{{ project.github_url }}" target="_blank">Code</a>{% endif %}
+        {% if project.live_url %}<a href="{{ project.live_url }}" target="_blank">Live</a>{% endif %}
+    </p>
+</article>
+{% endblock %}
+

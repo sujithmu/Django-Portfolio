@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home · Portfolio{% endblock %}
+{% block content %}
+{% if profile %}
+<section>
+    <h1>{{ profile.name }}</h1>
+    <p>{{ profile.tagline }}</p>
+    <p>{{ profile.bio }}</p>
+</section>
+{% endif %}
+
+{% if skills %}
+<section>
+    <h2>Skills</h2>
+    <ul>
+        {% for skill in skills %}
+        <li>{{ skill.icon }} {{ skill.name }} ({{ skill.level }}/5)</li>
+        {% endfor %}
+    </ul>
+    <p><a href="{% url 'about' %}">More about me</a></p>
+    <hr />
+</section>
+{% endif %}
+
+<h2>Projects</h2>
+<div class="grid">
+    {% for project in projects %}
+    <article>
+        <header>
+            <h3><a href="{% url 'project_detail' project.slug %}">{{ project.title }}</a></h3>
+        </header>
+        {% if project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }}" />
+        {% endif %}
+        <p>{{ project.description|truncatewords:30 }}</p>
+        <footer>
+            {% if project.github_url %}<a href="{{ project.github_url }}" target="_blank">Code</a>{% endif %}
+            {% if project.live_url %}<a href="{{ project.live_url }}" target="_blank">Live</a>{% endif %}
+        </footer>
+    </article>
+    {% empty %}
+    <p>No projects yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
+

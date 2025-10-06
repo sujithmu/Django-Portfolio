@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About · Portfolio{% endblock %}
+{% block content %}
+<section>
+    {% if profile %}
+    <h1>{{ profile.name }}</h1>
+    <p>{{ profile.tagline }}</p>
+    <p>{{ profile.bio }}</p>
+    {% endif %}
+</section>
+
+<section>
+    <h2>Experience</h2>
+    <ul>
+        {% for exp in experiences %}
+        <li>
+            <strong>{{ exp.role }}</strong> at {{ exp.company }}
+            ({{ exp.start_date }}{% if exp.end_date %} – {{ exp.end_date }}{% else %} – Present{% endif %})
+            <div>{{ exp.description }}</div>
+        </li>
+        {% empty %}
+        <li>No experience added yet.</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <h2>Skills</h2>
+    <ul>
+        {% for skill in skills %}
+        <li>{{ skill.icon }} {{ skill.name }} ({{ skill.level }}/5)</li>
+        {% empty %}
+        <li>No skills listed yet.</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}
+
+
+
